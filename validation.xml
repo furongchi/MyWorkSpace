@@ -1,0 +1,111 @@
+<testcase-def logicName="VR_Speech_to_Call_A_Contact" description="" memoryEnabled="false" cpuEnabled="false" eventsEnabled="false" radioEnabled="false" kernelEnabled="false" monkeyEnabled="false">
+<var name="MUTDevice">${deviceId0}</var>
+<var name="Recipient">${deviceId1}</var>
+<var name="Recipient2">${deviceId2}</var>
+<init>
+<!-- Return to homepage -->
+<action name="Press" sleep="500">
+<param name="deviceId">${MUTDevice}</param>
+<param name="keyName">CANCEL</param>
+<param name="times">3</param>
+<param name="snapshot">true</param>
+</action>
+<action name="Press" sleep="500">
+<param name="deviceId">${MUTDevice}</param>
+<param name="keyName">HOME</param>
+<param name="times">1</param>
+<param name="snapshot">true</param>
+</action>
+<action name="SwipePage" sleep="500">
+<param name="deviceId">${MUTDevice}</param>
+<param name="direction">RIGHT</param>
+<param name="times">2</param>
+<param name="snapshot">true</param>
+</action>
+<action name="SwipePage" sleep="500">
+<param name="deviceId">${MUTDevice}</param>
+<param name="direction">LEFT</param>
+<param name="times">1</param>
+<param name="snapshot">true</param>
+</action>
+</init>
+<main>
+ <action name="Comments" sleep="500">
+            <param name="deviceId">${MUTDevice}</param>
+            <param name="comments">TEST_BEGIN</param>
+            <param name="snapshot">true</param>
+        </action>
+		<!-- Launch to VR. -->
+<action name="SendLINMSG" sleep="8000">
+<param name="deviceId">${MUTDevice}</param>
+<param name="port">SWC</param>
+<param name="id">swc_ptt</param>
+<param name="message">00006220</param>
+<param name="frameType">slave</param>
+</action>
+<!-- Speech to phone -->
+<action name="PlayAudio" sleep="0">
+<param name="deviceId">${MUTDevice}</param>
+<param name="audioFile">${rootPath}\Audio\phone.wav</param>
+</action>
+<action name="CRVoiceCheck" sleep="1000">
+<param name="crDefFile">${rootPath}\SR.txt</param>
+<param name="failOnNotMatch">true</param>
+<param name="expected">level2</param>
+<param name="recognitionTimeout">8000</param>
+</action>
+<!-- Call Jacky at mobile -->
+<action name="PlayAudio" sleep="0">
+<param name="deviceId">${MUTDevice}</param>
+<param name="audioFile">${rootPath}\Audio\call_jacky.wav</param>
+</action>
+<!-- check fedback from IVI -->
+<action name="CRVoiceCheck" sleep="500">
+<param name="crDefFile">${rootPath}\SR.txt</param>
+<param name="failOnNotMatch">true</param>
+<param name="expected">level2</param>
+<param name="keywords">
+<map>
+<entry key="who">jacky</entry>
+</map>
+</param>
+<param name="recognitionTimeout">8000</param>
+</action>
+<action name="Delay" sleep="500">
+<param name="deviceId">${MUTDevice}</param>
+<param name="millitime">10000</param>
+<param name="snapshot">true</param>
+</action>
+<!--
+Companion 2 answer the call.
+		<action name="ExecCommand" sleep="5000">
+			<param name="deviceId">${Recipient2}</param>
+			<param name="command">shell input keyevent 5</param>
+			<param name="isReturn">false</param>
+		</action> 
+-->
+<!-- Companion 2 end the call. -->
+<action name="ExecCommand" sleep="5000">
+<param name="deviceId">${Recipient2}</param>
+<param name="command">shell input keyevent 6</param>
+<param name="isReturn">false</param>
+</action>
+</main>
+<finally>
+<!-- Companion 2 end the call. -->
+<action name="ExecCommand" sleep="1000">
+<param name="deviceId">${Recipient}</param>
+<param name="command">shell input keyevent 6</param>
+<param name="isReturn">false</param>
+</action>
+<!-- Click x button to exit VR for any exception -->
+<action name="Click" sleep="500">
+<param name="deviceId">${MUTDevice}</param>
+<param name="coordinate">756,35</param>
+<param name="contains">false</param>
+<param name="shiftX">0</param>
+<param name="shiftY">0</param>
+<param name="snapshot">true</param>
+</action>
+</finally>
+</testcase-def>
