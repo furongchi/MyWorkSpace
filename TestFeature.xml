@@ -1,4 +1,4 @@
-
+test
 
 <testcase-def features="feature1\,feature2\,feature3" preconditions="Precondition1\,Precondition2\,Precondition3" logicName="" description="" eventsenabled="false" radioenabled="false" kernelenabled="false" memoryenabled="false" cpuenabled="false" monkeyenabled="false">
 	<var name="MUTDevice">${deviceId0}</var>
