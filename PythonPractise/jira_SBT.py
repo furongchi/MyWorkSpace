@@ -6,8 +6,8 @@ import datetime
 url=' http://jira.odc.cienetcorp.com/'
 projectName='MATSUP'
 condition='project = MATSUP AND  status not in (Closed) AND updated <= "-1w" AND text ~ "SBT" ORDER BY created ASC'
-user='furong_chi'
-pwd='chi198318'
+user=input('Please input username:')
+pwd=input('Please input password:')
 issues_list=[]
 tamplate_title=['Project','IssueType','Key','Summary','Status','Reporter','Assignee','CreateTime','UpdateTime']
 now = datetime.datetime.now().date()
