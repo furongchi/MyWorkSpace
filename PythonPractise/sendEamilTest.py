@@ -6,17 +6,17 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.image import MIMEImage
 
 smtpserver= 'smtp.263.net'
-user='mats@cienet.com.cn'
-password='Welcome123'
-sender='mats@cienet.com.cn'
-to_list=['furongchi@cienet.com.cn']
+user=input('Please input user:')
+password=input('Please input password:')
+receiver=input('please input receiver:')
+to_list=[receiver]
 
 
 def send_mail():
-    subject='我是池福容，这个我通过python发送的邮件'
-    part1='你好,我是池福容，这个我通过python发送的邮件'
+    subject='我是XXX，这个我通过python发送的邮件'
+    part1='你好,我是XXX，这个我通过python发送的邮件'
     msg = MIMEMultipart('related')
-    msg['From'] = sender 
+    msg['From'] = user 
     msg['To'] = ";".join(to_list) 
     msg['Subject']=Header(subject,'utf-8')
     msgText=MIMEText(part1,'html','utf-8')
@@ -32,7 +32,7 @@ def send_mail():
         smtp=smtplib.SMTP()
         smtp.connect(smtpserver)
         smtp.login(user, password)
-        smtp.sendmail(sender,to_list, msg.as_string())
+        smtp.sendmail(user,to_list, msg.as_string())
         smtp.quit()
         return True
     except Exception as e:  
